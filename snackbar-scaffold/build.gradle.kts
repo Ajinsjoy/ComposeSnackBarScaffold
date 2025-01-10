@@ -19,7 +19,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -52,12 +52,13 @@ dependencies {
 afterEvaluate {
     publishing {
         publications {
+
             create<MavenPublication>("maven") {
                 from(components["release"])
 
                 groupId = "com.github.Ajinsjoy"
                 artifactId = "compose-snackbar-scaffold"
-                version = "1.0"
+                version = "1.0.0"
             }
         }
     }
