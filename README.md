@@ -19,11 +19,11 @@ Step 1. Add the JitPack repository to your build file
 Add it in your root build.gradle at the end of repositories:
 
 	dependencyResolutionManagement {
-		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-		repositories {
-			mavenCentral()
-			maven ( url= "https://jitpack.io" )
-		}
+	  	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	 	repositories {
+	  		mavenCentral()
+	   		maven ( url= "https://jitpack.io" )
+	  	}
 	}
 
 Step 2. Add the dependency
@@ -59,12 +59,17 @@ Explanation:
 # Sending a Snackbar Event with an Action
 If you need the Snackbar to include an actionable button, you can use the following approach:
 
-		 SnackbarController.sendEvent(event = SnackBarEvent(message,
-         		   action = SnackBarAction(
-          		      name = "click", action = {
-                	    SnackbarController.sendEvent(SnackBarEvent("Snack bar action"))
-    				}
-           		 )))
+	SnackbarController.sendEvent(
+            event = SnackBarEvent(
+                message= message,
+                action = SnackBarAction(
+                    name = "click",
+                    action = {
+                        SnackbarController.sendEvent(SnackBarEvent("Snack bar action"))
+                    }
+                )
+            )
+        )
 
 
 Explanation:
