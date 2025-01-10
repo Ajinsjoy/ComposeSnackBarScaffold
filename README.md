@@ -16,7 +16,7 @@ To get a Git project into your build:
 
 Step 1. Add the JitPack repository to your build file
 
-Add it in your root build.gradle at the end of repositories:
+Add it in your settings.gradle at the end of repositories:
 
 	dependencyResolutionManagement {
 	  	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -46,7 +46,7 @@ Step 2. Sending Snackbar Events with SnackbarController
 
 SnackbarController provides a structured way to send Snackbar events. This allows you to show messages or trigger specific actions when interacting with a Snackbar. Here's how to use it effectively.
  
-# Sending a Basic Snackbar Event
+# Send a Basic Snackbar Event
 
   	SnackbarController.sendEvent(event = SnackBarEvent("Message"))
 
@@ -56,7 +56,7 @@ Explanation:
 * SnackBarEvent: Represents an event that contains the message to be displayed.
 * This sends a basic Snackbar event that simply shows the provided message.
 
-# Sending a Snackbar Event with an Action
+# Send a Actionable Snackbar Event
 If you need the Snackbar to include an actionable button, you can use the following approach:
 
 	SnackbarController.sendEvent(
