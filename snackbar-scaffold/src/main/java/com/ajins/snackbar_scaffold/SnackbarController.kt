@@ -1,11 +1,16 @@
 package com.ajins.snackbar_scaffold
 
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
 data class SnackBarEvent(
     val message: String,
+    val leadingIcon:ImageVector?=null,
+    val duration: SnackbarDuration = SnackbarDuration.Short,
     val action: SnackBarAction? = null,
+    val showDismissAction: Boolean=false,
 )
 
 
