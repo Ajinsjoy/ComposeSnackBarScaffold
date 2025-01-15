@@ -2,9 +2,11 @@ package com.ajins.snackbar_scaffold
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -54,10 +56,11 @@ fun SnackBarScaffold(
         dismissActionContentColor = MaterialTheme.colorScheme.error,
         textStyle = MaterialTheme.typography.titleMedium,
 
-    ),
+        ),
     content: @Composable (PaddingValues) -> Unit
 ) {
     var leadingIcon by remember { mutableStateOf<ImageVector?>(null) }
+    var actionIcon by remember { mutableStateOf<ImageVector?>(null) }
 
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -69,7 +72,8 @@ fun SnackBarScaffold(
         scope.launch {
 
             snackbarHostState.currentSnackbarData?.dismiss()
-            leadingIcon=event.leadingIcon
+            leadingIcon = event.leadingIcon
+            actionIcon = event.action?.actionIcon
             val result = snackbarHostState.showSnackbar(
                 message = event.message,
                 actionLabel = event.action?.name,
@@ -107,6 +111,7 @@ fun SnackBarScaffold(
                         actionOnNewLine = snackBarStyle.actionOnNewLine,
                         dismissActionContentColor = snackBarStyle.dismissActionContentColor,
                         action = {
+
                             data.visuals.actionLabel?.let { actionLabel ->
                                 Text(
                                     text = actionLabel,
@@ -116,10 +121,24 @@ fun SnackBarScaffold(
                                     modifier = Modifier
                                         .padding(horizontal = 16.dp)
                                         .clickable {
+                                            if (actionLabel.isNotBlank())
+                                                data.performAction()
+                                        }
+                                )
+                            } ?: actionIcon?.let { icon ->
+                                Icon(
+                                    imageVector = icon,
+                                    contentDescription = null,
+                                    tint = snackBarStyle.actionColor,
+                                    modifier = Modifier
+                                        .padding(16.dp)
+                                        .size(24.dp)
+                                        .clickable {
                                             data.performAction()
                                         }
                                 )
                             }
+
                         },
                         dismissAction = {
                             if (data.visuals.withDismissAction)

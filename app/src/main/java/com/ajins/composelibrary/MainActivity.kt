@@ -6,18 +6,23 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import com.ajins.composelibrary.ui.theme.ComposeLibraryTheme
 import com.ajins.snackbar_scaffold.SnackBarAction
 import com.ajins.snackbar_scaffold.SnackBarEvent
 import com.ajins.snackbar_scaffold.SnackBarScaffold
 import com.ajins.snackbar_scaffold.SnackbarController
+import com.ajins.snackbar_scaffold.utils.SnackBarStyle
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -27,8 +32,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeLibraryTheme {
                 val scope = rememberCoroutineScope()
-                SnackBarScaffold {
-                    val context = LocalContext.current
+                SnackBarScaffold(
+                    snackBarStyle = SnackBarStyle(
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                        actionColor = MaterialTheme.colorScheme.primary,
+                        leadingIconColor = MaterialTheme.colorScheme.primary,
+                        dismissActionContentColor = MaterialTheme.colorScheme.error,
+                        textStyle = MaterialTheme.typography.titleMedium,
+                        shape = CircleShape
+                    )
+
+                ) {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Button(
                             modifier = Modifier,
@@ -37,10 +52,10 @@ class MainActivity : ComponentActivity() {
                                     SnackbarController.sendEvent(
                                         event = SnackBarEvent(
                                             message = "Sample Snackbar ",
-                                            leadingIcon = null,
                                             duration = SnackbarDuration.Short,
                                             action = SnackBarAction(
-                                                name = "click"
+                                                actionIcon = Icons.Outlined.Check,
+
                                             ) {
                                                 SnackbarController.sendEvent(
                                                     event = SnackBarEvent(
@@ -48,7 +63,7 @@ class MainActivity : ComponentActivity() {
                                                     )
                                                 )
                                             },
-                                            showDismissAction = false
+                                            showDismissAction = true
                                         )
                                     )
                                 }

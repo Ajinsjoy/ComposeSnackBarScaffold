@@ -15,9 +15,11 @@ data class SnackBarEvent(
 
 
 data class SnackBarAction(
-    val name: String,
+    val name: String?=null,
+    val actionIcon:ImageVector?=null,
     val action: suspend () -> Unit,
 )
+
 
 object SnackbarController {
 
